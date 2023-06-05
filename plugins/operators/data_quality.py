@@ -17,6 +17,9 @@ class DataQualityOperator(BaseOperator):
         # Map params here
         # Example:
         # self.conn_id = conn_id
+        self.redshift_conn_id = redshift_conn_id
+        self.check_stmts = check_stmts
 
     def execute(self, context):
-        self.log.info('DataQualityOperator not implemented yet')
+        # self.log.info('DataQualityOperator not implemented yet')
+        redshift_hook = PostgresHook("redshift")
