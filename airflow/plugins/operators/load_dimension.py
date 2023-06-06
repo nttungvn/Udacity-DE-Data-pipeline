@@ -36,3 +36,4 @@ class LoadDimensionOperator(BaseOperator):
             INSERT INTO {table} {query};
         """.format(table = self.table, query = self.query)
         redshift_hook.run(run_query)
+        self.log.info('Done LoadDimensionOperator')
