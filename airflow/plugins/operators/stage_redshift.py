@@ -10,10 +10,10 @@ class StageToRedshiftOperator(BaseOperator):
                  # Define your operators params (with defaults) here
                  # Example:
                  # redshift_conn_id=your-connection-name
-                 redshift_conn_id,
-                 table,
-                 s3_folder,
-                 json_path,
+                 redshift_conn_id='',
+                 table='',
+                 s3_folder='',
+                 json_path='',
                  *args, **kwargs):
 
         super(StageToRedshiftOperator, self).__init__(*args, **kwargs)

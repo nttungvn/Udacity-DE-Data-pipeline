@@ -11,8 +11,8 @@ class DataQualityOperator(BaseOperator):
                  # Define your operators params (with defaults) here
                  # Example:
                  # conn_id = your-connection-name
-                 redshift_conn_id,
-                 table,
+                 redshift_conn_id='',
+                 table='',
                  *args, **kwargs):
 
         super(DataQualityOperator, self).__init__(*args, **kwargs)

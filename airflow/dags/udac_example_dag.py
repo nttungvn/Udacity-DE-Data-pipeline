@@ -10,10 +10,10 @@ from airflow.operators.postgres_operator import PostgresOperator
 # AWS_KEY = os.environ.get('AWS_KEY')
 # AWS_SECRET = os.environ.get('AWS_SECRET')
 
-CREATE_TABLE_SCRIPT = open("create_tables.sql").read()
+CREATE_TABLE_SCRIPT = open("/opt/airflow/dags/create_tables.sql").read()
 
 default_args = {
-    'owner': 'udacity',
+    'owner': 'tungnt',
     'start_date': datetime(2019, 1, 12),
     'depends_on_past': False,
     'retries': 3,
@@ -43,7 +43,7 @@ stage_events_to_redshift = StageToRedshiftOperator(
     redshift_conn_id = "redshift_conn",
     table = "staging_events",
     s3_folder = "s3://tungnt/log-data/",
-    json_path = "JSON 's3://udacity-dend/log_json_path.json'"
+    json_path = "FORMAT AS JSON 's3://udacity-dend/log_json_path.json'"
 )
 
 stage_songs_to_redshift = StageToRedshiftOperator(
@@ -52,7 +52,7 @@ stage_songs_to_redshift = StageToRedshiftOperator(
     redshift_conn_id = "redshift_conn",
     table = "staging_songs",
     s3_folder = "s3://tungnt/song-data/",
-    json_path = "FORMAT AS JSON 'auto'"
+    json_path = "JSON 'auto'"
 )
 
 load_songplays_table = LoadFactOperator(

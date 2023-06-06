@@ -11,9 +11,9 @@ class LoadFactOperator(BaseOperator):
                  # Define your operators params (with defaults) here
                  # Example:
                  # conn_id = your-connection-name
-                 redshift_conn_id,
-                 table,
-                 query,
+                 redshift_conn_id='',
+                 table='',
+                 query='',
                  *args, **kwargs):
 
         super(LoadFactOperator, self).__init__(*args, **kwargs)
