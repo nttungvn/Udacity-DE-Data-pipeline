@@ -10,21 +10,33 @@ class StageToRedshiftOperator(BaseOperator):
                  # Define your operators params (with defaults) here
                  # Example:
                  # redshift_conn_id=your-connection-name
+                 redshift_conn_id,
+                 table,
+                 s3_folder,
+                 json_path,
                  *args, **kwargs):
 
         super(StageToRedshiftOperator, self).__init__(*args, **kwargs)
         # Map params here
         # Example:
         # self.conn_id = conn_id
-        self.table = table
         self.redshift_conn_id = redshift_conn_id
-        self.aws_credentials_id = aws_credentials_id
-        self.s3_bucket = s3_bucket
-        self.s3_key = s3_key
+        self.table = table
+        self.s3_folder = s3_folder
         self.json_path = json_path
 
+
     def execute(self, context):
-        self.log.info('StageToRedshiftOperator not implemented yet')
+        self.log.info('Start StageToRedshiftOperator')
+        redshift_hook = PostgresHook(self.redshift_conn_id)
+        query = """
+                COPY {table}
+                FROM {s3_folder}
+                {json_path};
+            """.format(table = self.table, s3_folder = self.s3_folder, json_path = self.json_path)
+        redshift_hook.run(query)
+        self.log.info('Done StageToRedshiftOperator')
+
 
 
 
